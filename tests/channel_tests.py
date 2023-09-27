@@ -10,4 +10,5 @@ def test_channel():
     assert classic_music.print_info()
     assert teremok_sounds.print_info()
 
+
 test_channel()

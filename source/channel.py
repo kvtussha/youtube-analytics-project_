@@ -9,6 +9,27 @@ class Channel:
         self._channel_id = channel_id
         self._channel = self.youtube_api.channels().list(id=channel_id, part='snippet,statistics').execute()
 
+    def __str__(self):
+        return f"{self.title}({self.url})"
+
+    def __add__(self, other):
+        return self.subscriber_count + other.subscriber_count
+
+    def __sub__(self, other):
+        return self.subscriber_count - other.subscriber_count
+
+    def __lt__(self, other):
+        return self.subscriber_count < other.subscriber_count
+
+    def __gt__(self, other):
+        return self.subscriber_count > other.subscriber_count
+
+    def __le__(self, other):
+        return self.subscriber_count <= other.subscriber_count
+
+    def __ge__(self, other):
+        return self.subscriber_count >= other.subscriber_count
+
     def channel_item(self) -> dict | None:
         return self._channel.get('items')[0]
 
@@ -36,15 +57,15 @@ class Channel:
 
     @property
     def subscriber_count(self):
-        return self.channel_statistics().get('subscriberCount')
+        return int(self.channel_statistics().get('subscriberCount'))
 
     @property
     def video_count(self):
-        return self.channel_statistics().get('videoCount')
+        return int(self.channel_statistics().get('videoCount'))
 
     @property
     def view_count(self):
-        return self.channel_statistics().get('viewCount')
+        return int(self.channel_statistics().get('viewCount'))
 
     @staticmethod
     def printj(dict_to_print: dict) -> None:
