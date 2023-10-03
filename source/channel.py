@@ -40,7 +40,7 @@ class Channel:
         return self.channel_item().get('statistics')
 
     @property
-    def channel_id(self):
+    def id(self):
         return self._channel_id
 
     @property
