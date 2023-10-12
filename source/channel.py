@@ -90,5 +90,5 @@ class Channel:
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(self._channel, f)
 
-# moscowpython = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
-# print(moscowpython.print_info())
+moscowpython = Channel('UC-OVMPlMA3-YCIeg4z5z23A')
+print(moscowpython.print_info())
