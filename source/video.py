@@ -1,8 +1,6 @@
 import json
 
 from source.implemented import youtube
-from source.my_errors.check_video_id import IdValueError
-
 
 class Video:
     youtube_api = youtube
@@ -11,10 +9,6 @@ class Video:
         self.video_id = video_id
         self._video = self.youtube_api.videos().list(id=video_id, part='snippet,contentDetails,'
                                                                        'statistics,status').execute()
-        try:
-            item = self._video.get("items")[0]
-        except Exception:
-            raise IdValueError
 
     def __str__(self):
         return str(self.title)
@@ -33,27 +27,53 @@ class Video:
 
     @property
     def id(self):
-        return self.video_id
+        value = self.video_id
+        return value
 
     @property
     def title(self):
-        return self.snippet().get('title')
+        try:
+            value = self.snippet().get('title')
+        except:
+            return None
+        else:
+            return value
 
     @property
     def link(self):
-        return f"https://www.youtube.com/watch?v={self.id}"
+        try:
+            value = f"https://www.youtube.com/watch?v={self.id}"
+        except:
+            return None
+        else:
+            return value
 
     @property
     def view_count(self):
-        return self.statistics().get('viewCount')
+        try:
+            value = self.statistics().get('viewCount')
+        except:
+            return None
+        else:
+            return value
 
     @property
     def like_count(self):
-        return self.statistics().get('likeCount')
+        try:
+            value = self.statistics().get('likeCount')
+        except:
+            return None
+        else:
+            return value
 
     @property
     def duration(self):
-        return self.content_details().get('duration')
+        try:
+            value = self.content_details().get('duration')
+        except:
+            return None
+        else:
+            return value
 
     @staticmethod
     def printj(dict_to_print: dict) -> None:
@@ -78,4 +98,4 @@ class PLVideo(Video):
 
 
 # video1 = Video('feg3DYywNys')
-# print(video1.print_info())
+# print(video1.duration)
