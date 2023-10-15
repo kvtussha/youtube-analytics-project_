@@ -1,6 +1,7 @@
 import json
 
 from source.implemented import youtube
+from source.my_errors.check_video_id import IdValueError
 
 
 class Video:
@@ -10,6 +11,10 @@ class Video:
         self.video_id = video_id
         self._video = self.youtube_api.videos().list(id=video_id, part='snippet,contentDetails,'
                                                                        'statistics,status').execute()
+        try:
+            item = self._video.get("items")[0]
+        except Exception:
+            raise IdValueError
 
     def __str__(self):
         return str(self.title)
